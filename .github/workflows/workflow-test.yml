@@ -12,3 +12,22 @@ jobs:
       WATCH_FILE_PATTERNS: |
         **/requirements.txt
         **.py    
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.11
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Setup Cache
+        id: setup-cache
+        uses: actions/cache@v3
+        with:
+          path: lambda/
+          key: ${{ runner.os }}-file-${{ hashFiles(env.WATCH_FILE_PATTERNS) }}) }}
+          restore-keys: |
+            ${{ runner.os }}-file-
